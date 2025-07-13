@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { MongoClient, ObjectId } from 'mongodb'
-import { BrowserBaseExtractor } from '@/lib/browserbase-extractor'
+import { extractPdfWithBrowserBase } from '@/lib/pdf-extractor-server'
 import { connectToDatabase } from '@/lib/config'
 
 // Use the same database configuration as the rest of the app
@@ -24,12 +24,8 @@ export async function POST(request: NextRequest) {
     console.log('URL:', url)
     console.log('Title:', title)
 
-    // Use the new BrowserBase PDF extractor
-    const extractor = new BrowserBaseExtractor(
-      process.env.BROWSERBASE_API_KEY || '',
-      process.env.BROWSERBASE_PROJECT_ID || ''
-    )
-    const extractionResult = await extractor.extractPDF(url)
+    // Use the new server-only PDF extractor
+    const extractionResult = await extractPdfWithBrowserBase(url)
     
     if (extractionResult.pdfUrl && extractionResult.method !== 'placeholder') {
       console.log('✅ PDF extracted successfully with method:', extractionResult.method)

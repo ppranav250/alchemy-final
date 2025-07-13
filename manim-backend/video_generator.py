@@ -5,9 +5,6 @@ from pathlib import Path
 import warnings
 import weave
 
-# Set FFmpeg path for MoviePy before importing
-os.environ['IMAGEIO_FFMPEG_EXE'] = '/opt/homebrew/bin/ffmpeg'
-
 # MoviePy imports
 from moviepy import VideoFileClip, AudioFileClip, concatenate_videoclips, ImageClip
 

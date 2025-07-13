@@ -1,5 +1,6 @@
-import { Stagehand } from '@browserbasehq/stagehand';
-import puppeteer from 'puppeteer';
+// Dynamic imports for server-only dependencies
+// import { Stagehand } from '@browserbasehq/stagehand';
+// import puppeteer from 'puppeteer';
 
 interface ExtractedData {
   pdfUrl?: string;
@@ -59,25 +60,37 @@ export class BrowserBaseExtractor {
   }
 
   private async extractWithBrowserBase(url: string): Promise<ExtractedData> {
-    const stagehand = new Stagehand({
-      env: "BROWSERBASE",
-      apiKey: this.apiKey,
-      projectId: this.projectId,
-      verbose: 1,
-    });
-
     try {
-      await stagehand.init();
+      // Dynamic import for server-only dependency
+      const { Stagehand } = await import('@browserbasehq/stagehand');
       
-      if (url.includes('pubmed.ncbi.nlm.nih.gov')) {
-        return await this.extractFromPubMedWithBrowserBase(stagehand, url);
-      } else if (url.includes('arxiv.org')) {
-        return await this.extractFromArxivWithBrowserBase(stagehand, url);
-      } else {
-        return await this.extractGenericWithBrowserBase(stagehand, url);
+      const stagehand = new Stagehand({
+        env: "BROWSERBASE",
+        apiKey: this.apiKey,
+        projectId: this.projectId,
+        verbose: 1,
+      });
+
+      try {
+        await stagehand.init();
+        
+        if (url.includes('pubmed.ncbi.nlm.nih.gov')) {
+          return await this.extractFromPubMedWithBrowserBase(stagehand, url);
+        } else if (url.includes('arxiv.org')) {
+          return await this.extractFromArxivWithBrowserBase(stagehand, url);
+        } else {
+          return await this.extractGenericWithBrowserBase(stagehand, url);
+        }
+      } finally {
+        await stagehand.close();
       }
-    } finally {
-      await stagehand.close();
+    } catch (error) {
+      console.error('BrowserBase extraction failed:', error);
+      // Fall back to placeholder method
+      return {
+        error: 'BrowserBase extraction not available',
+        method: 'placeholder'
+      };
     }
   }
 
@@ -290,24 +303,36 @@ export class BrowserBaseExtractor {
   }
 
   private async extractWithPuppeteer(url: string): Promise<ExtractedData> {
-    const browser = await puppeteer.launch({ 
-      headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox']
-    });
-    
     try {
-      const page = await browser.newPage();
-      await page.setUserAgent('Mozilla/5.0 (compatible; Research Paper Extractor)');
+      // Dynamic import for server-only dependency
+      const puppeteer = await import('puppeteer');
       
-      if (url.includes('pubmed.ncbi.nlm.nih.gov')) {
-        return await this.extractFromPubMedWithPuppeteer(page, url);
-      } else if (url.includes('arxiv.org')) {
-        return await this.extractFromArxivWithPuppeteer(page, url);
-      } else {
-        return await this.extractGenericWithPuppeteer(page, url);
+      const browser = await puppeteer.default.launch({ 
+        headless: true,
+        args: ['--no-sandbox', '--disable-setuid-sandbox']
+      });
+      
+      try {
+        const page = await browser.newPage();
+        await page.setUserAgent('Mozilla/5.0 (compatible; Research Paper Extractor)');
+        
+        if (url.includes('pubmed.ncbi.nlm.nih.gov')) {
+          return await this.extractFromPubMedWithPuppeteer(page, url);
+        } else if (url.includes('arxiv.org')) {
+          return await this.extractFromArxivWithPuppeteer(page, url);
+        } else {
+          return await this.extractGenericWithPuppeteer(page, url);
+        }
+      } finally {
+        await browser.close();
       }
-    } finally {
-      await browser.close();
+    } catch (error) {
+      console.error('Puppeteer extraction failed:', error);
+      // Fall back to placeholder method
+      return {
+        error: 'Puppeteer extraction not available',
+        method: 'placeholder'
+      };
     }
   }
 
