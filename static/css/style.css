@@ -82,11 +82,34 @@ button:hover {
     }
 }
 
-#result video {
-    width: 100%;
-    max-width: 100%;
-    border-radius: 8px;
+#result h2 {
+    margin-bottom: 20px;
+}
+
+#result h3 {
     margin-top: 20px;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+#audio-player {
+    width: 100%;
+}
+
+#prompt-result {
+    margin-top: 20px;
+    text-align: left;
+}
+
+#video-prompt-text {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 15px;
+    white-space: pre-wrap; /* Allows text to wrap */
+    word-wrap: break-word; /* Breaks long words */
+    max-height: 400px;
+    overflow-y: auto;
 }
 
 #error {

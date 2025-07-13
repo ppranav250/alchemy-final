@@ -5,7 +5,9 @@ document.getElementById('paper-form').addEventListener('submit', async function(
     const loadingDiv = document.getElementById('loading');
     const resultDiv = document.getElementById('result');
     const errorDiv = document.getElementById('error');
-    const videoPlayer = document.getElementById('video-player');
+    const audioPlayer = document.getElementById('audio-player');
+    const videoPromptText = document.getElementById('video-prompt-text');
+    const resultTitle = document.getElementById('result-title');
 
     loadingDiv.style.display = 'block';
     resultDiv.style.display = 'none';
@@ -23,9 +25,11 @@ document.getElementById('paper-form').addEventListener('submit', async function(
         const data = await response.json();
 
         if (response.ok) {
-            // Use the path returned from the server, adding a timestamp to prevent caching issues.
-            videoPlayer.src = `${data.video_path}?t=${new Date().getTime()}`;
-            videoPlayer.load();
+            resultTitle.textContent = data.message;
+            // The backend now returns a relative path, so we prepend the media route
+            audioPlayer.src = `/media/${data.audio_path.split('media/')[1]}?t=${new Date().getTime()}`;
+            videoPromptText.textContent = data.video_prompt;
+            audioPlayer.load();
             resultDiv.style.display = 'block';
         } else {
             document.getElementById('error-message').textContent = data.error + (data.details ? `\n\n${data.details}` : '');
