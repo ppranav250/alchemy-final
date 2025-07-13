@@ -5,7 +5,7 @@ import fs from 'fs'
 import path from 'path'
 
 // Configuration for the manim backend server
-const MANIM_SERVER_URL = process.env.MANIM_SERVER_URL || 'http://localhost:8000'
+const MANIM_SERVER_URL = process.env.MANIM_SERVER_URL || 'http://127.0.0.1:8001'
 
 interface ManimJobResponse {
   job_id: string
