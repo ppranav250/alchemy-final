@@ -19,8 +19,8 @@ from video_generator import generate_summary_video, generate_summary_video_uploa
 
 # Initialize Weave for API tracking (with fallback)
 try:
-    weave.init("manim_video_api")
-    print("✅ W&B Weave tracking initialized")
+    weave.init("research-agent")
+    print("✅ W&B Weave tracking initialized for project: research-agent")
 except Exception as e:
     print(f"⚠️  W&B Weave not available: {e}")
     print("📊 Server will run without tracking")

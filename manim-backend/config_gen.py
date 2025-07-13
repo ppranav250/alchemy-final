@@ -44,11 +44,17 @@ Generate a JSON for a 45-60 second video with exactly 4 clips that showcase INSA
 - Multi-dimensional visualizations
 - Sophisticated color schemes and smooth transitions
 
-CLIP STRUCTURE (exactly 4 clips):
-1. Introduction (12s): Complex network/graph introduction with minimum 12 interconnected nodes
-2. Core Concept (12s): Mathematical visualization with animated functions and plots
-3. Deep Mechanism (12s): Sophisticated animated explanation with transforming networks
-4. Advanced Insight (12s): High-level mathematical/visual synthesis with complex data flow
+CLIP STRUCTURE (45-60 seconds total):
+1. Introduction (10-15s): Complex network/graph intro with min. 12 interconnected nodes.
+2. Core Concept (10-15s): Mathematical visualization with animated functions and plots.
+3. Deep Mechanism (10-15s): Sophisticated animated explanation with transforming networks.
+4. Advanced Insight (10-15s): High-level synthesis with complex data flow.
+Ensure total duration is between 45 and 60 seconds.
+
+CRITICAL LAYOUT RULES (NO EXCEPTIONS):
+- ALL text elements (titles, labels, etc.) MUST be positioned using .to_edge(UP) or .to_edge(DOWN).
+- ALL diagrams, graphs, and visualizations MUST be positioned in the center of the screen.
+- NEVER allow text and diagrams to overlap. Use the screen edges for text and the center for visuals.
 
 ADVANCED MANIM CAPABILITIES YOU MUST USE:
 - NETWORKS: Complex node graphs with VGroup, animated connections, data flow
