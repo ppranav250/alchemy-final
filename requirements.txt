@@ -1,0 +1,9 @@
+Flask==2.3.2
+requests==2.31.0
+beautifulsoup4==4.12.2
+PyMuPDF==1.23.3
+anthropic==0.5.0
+manim==0.17.3
+lmnt==0.0.6
+pydub==0.25.1
+python-dotenv==1.0.0
