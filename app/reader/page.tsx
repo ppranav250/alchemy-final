@@ -92,7 +92,7 @@ export default function ReaderPage() {
                 <BookOpen className="h-5 w-5 text-white" />
               </div>
               <span className="text-xl font-sans font-bold text-royal-500">
-                Eureka
+                PaperTrail
               </span>
             </Link>
             <nav className="hidden md:flex gap-6 absolute left-1/2 transform -translate-x-1/2">
@@ -137,7 +137,7 @@ export default function ReaderPage() {
               <BookOpen className="h-5 w-5 text-white" />
             </div>
             <span className="text-xl font-sans font-bold text-royal-500">
-              Eureka
+              PaperTrail
             </span>
           </Link>
           <nav className="hidden md:flex gap-6 absolute left-1/2 transform -translate-x-1/2">

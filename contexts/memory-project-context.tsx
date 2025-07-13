@@ -10,7 +10,7 @@ interface MemoryProjectContextType {
 
 const MemoryProjectContext = createContext<MemoryProjectContextType | undefined>(undefined);
 
-const STORAGE_KEY = 'eureka-active-memory-project';
+const STORAGE_KEY = 'papertrail-active-memory-project';
 
 export function MemoryProjectProvider({ children }: { children: React.ReactNode }) {
   const [activeProjectId, setActiveProjectIdState] = useState<string | null>(null);

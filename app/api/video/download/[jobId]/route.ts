@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 // Configuration for the manim backend server
-const MANIM_SERVER_URL = process.env.MANIM_SERVER_URL || 'http://localhost:8001'
+const MANIM_SERVER_URL = process.env.MANIM_SERVER_URL || 'http://localhost:8000'
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { jobId: string } }
+  { params }: { params: Promise<{ jobId: string }> }
 ) {
   try {
-    const { jobId } = params;
+    const { jobId } = await params;
 
     if (!jobId) {
       return NextResponse.json(

@@ -1,4 +1,4 @@
-from fastapi import FastAPI, BackgroundTasks, HTTPException, UploadFile, File
+from fastapi import FastAPI, BackgroundTasks, HTTPException, UploadFile, File, Form
 from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -192,7 +192,7 @@ def compress_pdf_aggressive(input_path: str, output_path: str, target_size_mb: f
         return input_path
 
 @weave.op()
-async def process_video_generation(job_id: str, pdf_source: str, is_upload: bool = False):
+async def process_video_generation(job_id: str, pdf_source: str, prompt: str = "", is_upload: bool = False):
     """Background task to generate video with Weave tracking"""
     try:
         update_job_status(job_id, "processing")
@@ -201,10 +201,10 @@ async def process_video_generation(job_id: str, pdf_source: str, is_upload: bool
         # Use our existing video generation pipeline
         if is_upload:
             # For uploaded files, we need to use base64 encoding
-            result = await generate_summary_video_upload(pdf_source)
+            result = await generate_summary_video_upload(pdf_source, prompt)
         else:
             # For URLs, pass directly
-            result = await generate_summary_video(pdf_source)
+            result = await generate_summary_video(pdf_source, prompt)
         
         # Move video to outputs directory with job ID
         os.makedirs("outputs", exist_ok=True)
@@ -606,7 +606,8 @@ async def serve_frontend():
 @app.post("/generate-video-upload")
 async def generate_video_upload(
     background_tasks: BackgroundTasks,
-    file: UploadFile = File(...)
+    file: UploadFile = File(...),
+    prompt: str = Form("Generate a video explaining the key concepts from this research paper")
 ):
     """Upload PDF and start video generation"""
     
@@ -697,6 +698,7 @@ async def generate_video_upload(
         process_video_generation,
         job_id,
         final_file_path,
+        prompt, # Pass prompt
         True  # is_upload = True
     )
     
@@ -738,6 +740,7 @@ async def generate_video_url(request: VideoRequest, background_tasks: Background
         process_video_generation,
         job_id,
         request.pdf_url,
+        "", # No prompt for URL generation
         False  # is_upload = False
     )
     
@@ -852,4 +855,4 @@ if __name__ == "__main__":
     print("🌐 Frontend: http://localhost:8000")
     print("📖 API docs: http://localhost:8000/docs")
     
-    uvicorn.run(app, host="0.0.0.0", port=8000, reload=True) 
+    uvicorn.run(app, host="0.0.0.0", port=8000, reload=False) 

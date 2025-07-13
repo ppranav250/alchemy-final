@@ -353,7 +353,7 @@ export default function ReaderPage({ params }: { params: { id: string } }) {
                 <BookOpen className="h-5 w-5 text-white" />
               </div>
               <span className="text-xl font-sans font-bold text-royal-500">
-                Eureka
+                PaperTrail
               </span>
             </Link>
             
@@ -424,7 +424,7 @@ export default function ReaderPage({ params }: { params: { id: string } }) {
                 <BookOpen className="h-5 w-5 text-white" />
               </div>
               <span className="text-xl font-sans font-bold text-royal-500">
-                Eureka
+                PaperTrail
               </span>
             </Link>
             
@@ -505,7 +505,7 @@ export default function ReaderPage({ params }: { params: { id: string } }) {
                 <BookOpen className="h-5 w-5 text-white" />
               </div>
               <span className="text-xl font-sans font-bold text-royal-500">
-                Eureka
+                PaperTrail
               </span>
             </Link>
             
@@ -584,7 +584,7 @@ export default function ReaderPage({ params }: { params: { id: string } }) {
                 <BookOpen className="h-5 w-5 text-white" />
               </div>
               <span className="text-xl font-sans font-bold text-royal-500">
-                Eureka
+                PaperTrail
               </span>
             </Link>
             
@@ -666,7 +666,7 @@ export default function ReaderPage({ params }: { params: { id: string } }) {
               <BookOpen className="h-5 w-5 text-white" />
             </div>
             <span className="text-xl font-sans font-bold text-royal-500">
-              Eureka
+              PaperTrail
             </span>
           </Link>
           

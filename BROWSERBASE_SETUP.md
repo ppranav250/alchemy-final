@@ -4,7 +4,7 @@ This guide explains how to set up and use the BrowserBase integration for advanc
 
 ## 🎯 What's New
 
-The Eureka application now includes **BrowserBase integration** for extracting PDFs from complex academic sites like PubMed, Nature, Science, and IEEE. This replaces the basic web scraping with sophisticated browser automation.
+The PaperTrail application now includes **BrowserBase integration** for extracting PDFs from complex academic sites like PubMed, Nature, Science, and IEEE. This replaces the basic web scraping with sophisticated browser automation.
 
 ### 🚀 Enhanced Capabilities
 
@@ -38,7 +38,7 @@ BROWSERBASE_API_KEY=your_browserbase_api_key_here
 BROWSERBASE_PROJECT_ID=your_browserbase_project_id_here
 
 # Other existing variables...
-MONGODB_URI=mongodb://localhost:27017/eureka
+MONGODB_URI=mongodb://localhost:27017/papertrail
 EXA_API_KEY=your_exa_api_key_here
 ```
 

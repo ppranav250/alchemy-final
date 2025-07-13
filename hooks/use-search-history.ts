@@ -10,7 +10,7 @@ export interface SearchHistoryItem {
   results?: any[];
 }
 
-const STORAGE_KEY = 'eureka-search-history';
+const STORAGE_KEY = 'papertrail-search-history';
 const MAX_HISTORY_ITEMS = 50;
 
 export function useSearchHistory() {

@@ -172,7 +172,7 @@ export default function SearchPage() {
             <div className="bg-royal-500 p-1.5 rounded-lg flex items-center">
               <BookOpen className="h-5 w-5 text-white" />
             </div>
-            <span className="text-xl font-sans font-bold text-royal-500">Eureka</span>
+            <span className="text-xl font-sans font-bold text-royal-500">PaperTrail</span>
           </Link>
           <nav className="hidden md:flex gap-6 absolute left-1/2 transform -translate-x-1/2">
             <Link href="/reader" className="font-sans font-medium text-royal-500 hover:text-royal-600">Reader</Link>

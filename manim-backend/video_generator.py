@@ -9,7 +9,7 @@ import weave
 from moviepy import VideoFileClip, AudioFileClip, concatenate_videoclips, ImageClip
 
 # Local imports
-from config_gen import generate_video_config
+from config_gen import generate_video_config_with_smart_docs
 from manim_generator import generate_manim_clips
 from voice_gen_fallback import generate_voice_with_fallback as generate_voice
 from veo_gen import generate_veo_thank_you_clip
@@ -321,12 +321,13 @@ def stitch_videos(video_paths: list, output_path: str = "summary_video.mp4", add
 
 
 @weave.op()
-async def generate_summary_video_upload(pdf_path: str) -> dict:
+async def generate_summary_video_upload(pdf_path: str, user_prompt: str = "") -> dict:
     """Generate a 1-minute summary video from an uploaded PDF file."""
     print(f"📄 Processing uploaded PDF: {pdf_path}")
+    print(f"📝 User prompt: {user_prompt}")
     
     # Generate video config from PDF using base64 encoding
-    response = generate_video_config(pdf_path, use_base64=True)
+    response = generate_video_config_with_smart_docs(pdf_path, user_prompt, use_base64=True)
     config_text = response.content[0].text
     
     # Parse JSON config
@@ -496,12 +497,13 @@ async def generate_summary_video_upload(pdf_path: str) -> dict:
 
 
 @weave.op()
-async def generate_summary_video(pdf_url: str) -> dict:
+async def generate_summary_video(pdf_url: str, user_prompt: str = "") -> dict:
     """Generate a 1-minute summary video from a PDF URL."""
     print(f"📄 Processing PDF: {pdf_url}")
+    print(f"📝 User prompt: {user_prompt}")
     
     # Generate video config from PDF
-    response = generate_video_config(pdf_url, use_base64=False)
+    response = generate_video_config_with_smart_docs(pdf_url, user_prompt, use_base64=False)
     config_text = response.content[0].text
     
     # Parse JSON config
