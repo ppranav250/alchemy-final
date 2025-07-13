@@ -1,6 +1,8 @@
 import os
-from lmnt.api import Lmnt
+import asyncio
+from lmnt.api import Speech
 from pydub import AudioSegment
+from ..config import Config
 
 def synthesize_and_stitch_audio(narration_lines: list) -> dict:
     """
@@ -12,24 +14,27 @@ def synthesize_and_stitch_audio(narration_lines: list) -> dict:
     Returns:
         A dictionary containing the path to the final audio file, or an error.
     """
-    try:
-        lmnt_client = Lmnt(os.getenv("LMNT_API_KEY"))
+    async def _synthesize_async(lines):
         audio_files = []
-        audio_dir = os.path.join('media', 'audio')
+        async with Speech(Config.LMNT_API_KEY) as speech:
+            for i, text in enumerate(lines):
+                try:
+                    synthesis = await speech.synthesize(text, Config.LMNT_VOICE)
+                    audio_data = synthesis['audio']
+                    filename = f"narration_{i}.mp3"
+                    filepath = os.path.join(audio_dir, filename)
+                    with open(filepath, 'wb') as f:
+                        f.write(audio_data)
+                    audio_files.append(filepath)
+                except Exception as e:
+                    print(f"LMNT synthesis failed for line: '{text}'. Error: {e}")
+        return audio_files
+
+    try:
+        audio_dir = Config.AUDIO_DIR
         os.makedirs(audio_dir, exist_ok=True)
 
-        for i, text in enumerate(narration_lines):
-            try:
-                audio_response = lmnt_client.synthesize(text, 'lily')
-                audio_data = audio_response['audio']
-                filename = f"narration_{i}.mp3"
-                filepath = os.path.join(audio_dir, filename)
-                with open(filepath, 'wb') as f:
-                    f.write(audio_data)
-                audio_files.append(filepath)
-            except Exception as e:
-                # Log the error but continue if possible
-                print(f"LMNT synthesis failed for line: '{text}'. Error: {e}")
+        audio_files = asyncio.run(_synthesize_async(narration_lines))
 
         if not audio_files:
             return {'error': 'Audio synthesis failed for all narration lines.'}

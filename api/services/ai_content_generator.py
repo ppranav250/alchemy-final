@@ -1,6 +1,7 @@
 import os
 import re
 import anthropic
+from ..config import Config
 
 def generate_and_parse_script(text_content: str) -> dict:
     """
@@ -13,7 +14,7 @@ def generate_and_parse_script(text_content: str) -> dict:
         A dictionary containing the video prompt and narration lines, or an error.
     """
     try:
-        client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+        client = anthropic.Anthropic(api_key=Config.ANTHROPIC_API_KEY)
 
         prompt = f"""\n\nHuman: You are an expert science communicator, like Grant Sanderson of 3blue1brown. Your task is to analyze a research paper and generate two things:
 1. A detailed, scene-by-scene prompt for a generative text-to-video AI model like Google Veo. This prompt should describe a visually stunning, cinematic, and educational video that explains the paper's core concepts. Describe camera angles, lighting, and visual styles (e.g., 'photorealistic', 'sci-fi UI', 'abstract data visualization').
@@ -51,8 +52,8 @@ Now, generate the <video_prompt> and <narration_script> for the provided researc
 Assistant:"""
 
         message = client.messages.create(
-            model="claude-3-opus-20240229",
-            max_tokens=4096,
+            model=Config.CLAUDE_MODEL,
+            max_tokens=Config.MAX_TOKENS,
             messages=[
                 {"role": "user", "content": prompt}
             ]

@@ -1,15 +1,12 @@
 from flask import Flask, render_template, request, jsonify, send_from_directory
 import os
-from dotenv import load_dotenv
+import logging
 from api.orchestrator import process_research_paper
 
-load_dotenv()
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 app = Flask(__name__)
-
-ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
-LMNT_API_KEY = os.getenv("LMNT_API_KEY")
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY") # For Google Veo
 
 @app.route('/')
 def index():
