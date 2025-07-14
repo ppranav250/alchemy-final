@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Paper to Video</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Research Paper to Video</h1>
+        <p>Enter the URL of a research paper (PDF) to generate a 3blue1brown-style animated explanation.</p>
+        <form id="paper-form">
+            <input type="url" id="paper-url" placeholder="Enter PDF URL" required>
+            <button type="submit">Generate Video</button>
+        </form>
+        <div id="loading" style="display: none;">
+            <p>Generating video... this may take a few minutes.</p>
+            <div class="spinner"></div>
+        </div>
+        <div id="result" style="display: none;">
+            <h2>Generated Video</h2>
+            <video id="video-player" controls>
+                <source src="" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div id="error" style="display: none;">
+            <h2>An Error Occurred</h2>
+            <p id="error-message"></p>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
