@@ -1,4 +1,4 @@
-# 📚 Paper Trail - Unified Research Assistant Platform
+# 📚 Alchemy - Unified Research Assistant Platform
 
 A complete research assistant platform that combines paper reading, AI-powered analysis, video generation, and knowledge graph management in one integrated system.
 
@@ -31,7 +31,7 @@ A complete research assistant platform that combines paper reading, AI-powered a
 ## 🏗️ Architecture
 
 ```
-paper-trail-unified/
+alchemy-unified/
 ├── 📁 Frontend (Next.js)
 │   ├── app/                    # Next.js 13+ app router
 │   ├── components/             # React components
